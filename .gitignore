@@ -1,2 +1,5 @@
 document_errors/
 logs/
+private/
+stats/
+cgi-bin/
