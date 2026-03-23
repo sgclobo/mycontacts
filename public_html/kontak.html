@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hau Nia Kontaktu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #0d1117;
+      --ink2: #3a4255;
+      --muted: #8b96b0;
+      --bg: #f6f8fd;
+      --surface: #ffffff;
+      --border: rgba(0,0,0,0.07);
+      --accent: #1a56db;
+      --accent2: #e8f0ff;
+      --danger: #e5002b;
+      --green: #059669;
+      --radius: 14px;
+      --shadow: 0 2px 16px rgba(26,86,219,0.08), 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding-bottom: 4rem;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    .header-inner {
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .logo-sub {
+      font-size: 0.68rem;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .count-badge {
+      background: var(--accent2);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Main container ── */
+    main {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 0;
+    }
+
+    /* ── Add form ── */
+    .add-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.4rem 1.4rem 1.2rem;
+      margin-bottom: 1.5rem;
+      border: 1.5px solid var(--border);
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-label-custom {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+
+    .form-control-custom {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.92rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--ink);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+      margin-bottom: 0.9rem;
+    }
+
+    .form-control-custom:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26,86,219,0.1);
+      background: #fff;
+    }
+
+    .form-control-custom::placeholder { color: var(--muted); }
+
+    .btn-add {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.7rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn-add:hover { background: #1344b8; }
+    .btn-add:active { transform: scale(0.98); }
+
+    /* ── Search ── */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.65rem 0.9rem 0.65rem 2.4rem;
+      font-size: 0.88rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26,86,219,0.1);
+    }
+
+    /* ── Section title ── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+      padding-left: 0.1rem;
+    }
+
+    /* ── Contact list ── */
+    .contacts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 0.95rem 1rem 0.95rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      border: 1.5px solid var(--border);
+      animation: fadeIn 0.25s ease both;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(26,86,219,0.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: white;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+
+    .contact-phone {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--ink2);
+      margin-top: 0.18rem;
+      letter-spacing: 0.03em;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .btn-icon {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn-icon:active { transform: scale(0.92); }
+
+    .btn-copy-contact {
+      background: var(--accent2);
+      color: var(--accent);
+    }
+
+    .btn-copy-contact:hover { background: #d0e0ff; }
+    .btn-copy-contact.copied { background: #d1fae5; color: var(--green); }
+
+    .btn-delete {
+      background: #fff0f0;
+      color: var(--danger);
+    }
+
+    .btn-delete:hover { background: #ffe0e5; }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      color: var(--muted);
+    }
+
+    .empty-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      opacity: 0.4;
+    }
+
+    .empty-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink2);
+      margin-bottom: 0.3rem;
+    }
+
+    .empty-sub {
+      font-size: 0.8rem;
+    }
+
+    /* ── Toast ── */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      min-width: 220px;
+    }
+
+    /* ── Export bar ── */
+    .export-bar {
+      max-width: 520px;
+      margin: 1.5rem auto 0;
+      padding: 0 1rem;
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .btn-export {
+      flex: 1;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-export:hover {
+      background: var(--accent2);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* avatar color palette */
+    .av0 { background: #1a56db; }
+    .av1 { background: #e5002b; }
+    .av2 { background: #059669; }
+    .av3 { background: #d97706; }
+    .av4 { background: #7c3aed; }
+    .av5 { background: #0891b2; }
+    .av6 { background: #db2777; }
+    .av7 { background: #65a30d; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-icon"><i class="bi bi-person-lines-fill"></i></div>
+        <div>
+          <div class="logo-text">Hau Nia Kontaktu</div>
+          <div class="logo-sub">Backup Kontaktu Pesoál</div>
+        </div>
+      </div>
+      <div class="count-badge" id="countBadge">0 kontaktu</div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+
+    <!-- Add Contact Form -->
+    <div class="add-card">
+      <div style="font-size:0.8rem;font-weight:700;color:var(--ink2);margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem;">
+        <i class="bi bi-person-plus" style="color:var(--accent)"></i> Aumenta Kontaktu Foun
+      </div>
+      <label class="form-label-custom">Naran</label>
+      <input class="form-control-custom" type="text" id="inputName" placeholder="ex. João Silva" autocomplete="off">
+      <label class="form-label-custom">Numeru Telefone</label>
+      <input class="form-control-custom" type="tel" id="inputPhone" placeholder="ex. +670 7723 4567" autocomplete="off">
+      <button class="btn-add" onclick="addContact()">
+        <i class="bi bi-plus-lg"></i> Salva Kontaktu
+      </button>
+    </div>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <i class="bi bi-search search-icon"></i>
+      <input class="search-input" type="text" id="searchInput" placeholder="Buka kontaktu..." oninput="renderContacts()">
+    </div>
+
+    <!-- List -->
+    <div class="section-label" id="listLabel">Kontaktu hotu</div>
+    <div class="contacts-list" id="contactsList"></div>
+
+  </main>
+
+  <!-- Export bar -->
+  <div class="export-bar">
+    <button class="btn-export" onclick="exportCSV()">
+      <i class="bi bi-download"></i> Exporta CSV
+    </button>
+    <button class="btn-export" onclick="exportTXT()">
+      <i class="bi bi-file-text"></i> Exporta TXT
+    </button>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container">
+    <div id="mainToast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body fw-semibold" id="toastMsg">
+          <i class="bi bi-check-circle me-2"></i> Feito!
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const STORAGE_KEY = 'hau_nia_kontaktu';
+
+    // ── Load / Save ──
+    function loadContacts() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+
+    function saveContacts(list) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    }
+
+    // ── Avatar ──
+    function initials(name) {
+      return name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+    }
+
+    function avatarClass(name) {
+      let h = 0;
+      for (let c of name) h = (h * 31 + c.charCodeAt(0)) & 0xffff;
+      return 'av' + (h % 8);
+    }
+
+    // ── Render ──
+    function renderContacts() {
+      const contacts = loadContacts();
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const filtered = q
+        ? contacts.filter(c => c.name.toLowerCase().includes(q) || c.phone.includes(q))
+        : contacts;
+
+      // Sort alphabetically
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+
+      const list = document.getElementById('contactsList');
+      const label = document.getElementById('listLabel');
+      const badge = document.getElementById('countBadge');
+
+      badge.textContent = contacts.length + (contacts.length === 1 ? ' kontaktu' : ' kontaktu');
+      label.textContent = q
+        ? `${filtered.length} rezultadu ba "${q}"`
+        : `Kontaktu hotu (${filtered.length})`;
+
+      if (filtered.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon"><i class="bi bi-person-slash"></i></div>
+            <div class="empty-title">${q ? 'La hetan kontaktu' : 'Seidauk iha kontaktu'}</div>
+            <div class="empty-sub">${q ? 'Tenta buka ho lia seluk.' : 'Aumenta ita-nia kontaktu primeiru iha leten.'}</div>
+          </div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map((c, i) => `
+        <div class="contact-card" style="animation-delay:${Math.min(i * 0.04, 0.4)}s">
+          <div class="avatar ${avatarClass(c.name)}">${initials(c.name)}</div>
+          <div class="contact-info">
+            <div class="contact-name">${escapeHtml(c.name)}</div>
+            <div class="contact-phone">${escapeHtml(c.phone)}</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-copy-contact" title="Kopia numeru" onclick="copyPhone('${escapeAttr(c.phone)}', this)">
+              <i class="bi bi-clipboard"></i>
+            </button>
+            <button class="btn-icon btn-delete" title="Hasai kontaktu" onclick="deleteContact('${escapeAttr(c.id)}')">
+              <i class="bi bi-trash3"></i>
+            </button>
+          </div>
+        </div>`).join('');
+    }
+
+    // ── Add ──
+    function addContact() {
+      const nameEl = document.getElementById('inputName');
+      const phoneEl = document.getElementById('inputPhone');
+      const name = nameEl.value.trim();
+      const phone = phoneEl.value.trim();
+
+      if (!name || !phone) {
+        showToast('⚠️ Hakerek naran no numeru antes!', 'text-bg-warning');
+        (!name ? nameEl : phoneEl).focus();
+        return;
+      }
+
+      const contacts = loadContacts();
+
+      // Check duplicate phone
+      if (contacts.some(c => c.phone === phone)) {
+        showToast('⚠️ Numeru ne\'e iha ona!', 'text-bg-warning');
+        phoneEl.focus();
+        return;
+      }
+
+      contacts.push({ id: Date.now().toString(), name, phone });
+      saveContacts(contacts);
+      nameEl.value = '';
+      phoneEl.value = '';
+      nameEl.focus();
+      renderContacts();
+      showToast('<i class="bi bi-check-circle me-1"></i> Kontaktu salva ona!', 'text-bg-success');
+    }
+
+    // ── Delete ──
+    function deleteContact(id) {
+      if (!confirm('Hasai kontaktu ne\'e?')) return;
+      const contacts = loadContacts().filter(c => c.id !== id);
+      saveContacts(contacts);
+      renderContacts();
+      showToast('<i class="bi bi-trash3 me-1"></i> Kontaktu hasai ona.', 'text-bg-danger');
+    }
+
+    // ── Copy phone ──
+    async function copyPhone(phone, btn) {
+      try {
+        await navigator.clipboard.writeText(phone);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = phone;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('copied');
+      btn.innerHTML = '<i class="bi bi-check2"></i>';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = '<i class="bi bi-clipboard"></i>';
+      }, 2000);
+      showToast('<i class="bi bi-clipboard-check me-1"></i> Numeru kopiadu!', 'text-bg-success');
+    }
+
+    // ── Toast ──
+    function showToast(msg, cls = 'text-bg-success') {
+      const el = document.getElementById('mainToast');
+      el.className = `toast align-items-center border-0 ${cls}`;
+      document.getElementById('toastMsg').innerHTML = msg;
+      bootstrap.Toast.getOrCreateInstance(el, { delay: 2500 }).show();
+    }
+
+    // ── Export CSV ──
+    function exportCSV() {
+      const contacts = loadContacts();
+      if (!contacts.length) { showToast('⚠️ Laiha kontaktu atu exporta.', 'text-bg-warning'); return; }
+      const rows = [['Naran', 'Numeru Telefone'], ...contacts.map(c => [c.name, c.phone])];
+      const csv = rows.map(r => r.map(v => `"${v.replace(/"/g, '""')}"`).join(',')).join('\n');
+      download('kontaktu.csv', csv, 'text/csv');
+      showToast('<i class="bi bi-download me-1"></i> CSV ba download!', 'text-bg-success');
+    }
+
+    // ── Export TXT ──
+    function exportTXT() {
+      const contacts = loadContacts();
+      if (!contacts.length) { showToast('⚠️ Laiha kontaktu atu exporta.', 'text-bg-warning'); return; }
+      const sorted = [...contacts].sort((a, b) => a.name.localeCompare(b.name));
+      const txt = sorted.map(c => `${c.name.padEnd(30)} ${c.phone}`).join('\n');
+      download('kontaktu.txt', txt, 'text/plain');
+      showToast('<i class="bi bi-file-text me-1"></i> TXT ba download!', 'text-bg-success');
+    }
+
+    function download(filename, content, mime) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([content], { type: mime }));
+      a.download = filename;
+      a.click();
+    }
+
+    // ── Safety helpers ──
+    function escapeHtml(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function escapeAttr(s) {
+      return s.replace(/'/g, "\\'");
+    }
+
+    // ── Enter key ──
+    document.getElementById('inputPhone').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addContact();
+    });
+    document.getElementById('inputName').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('inputPhone').focus();
+    });
+
+    // ── Init ──
+    renderContacts();
+  </script>
+</body>
+</html>

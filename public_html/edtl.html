@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kontador EDTL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+      :root {
+        --edtl-blue: #003DA5;
+        --edtl-red: #E5002B;
+        --edtl-yellow: #FFC107;
+        --bg: #f0f4f9;
+        --card-bg: #ffffff;
+        --text-muted: #6b7a99;
+      }
+
+      body {
+        background: var(--bg);
+        font-family: 'Sora', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+      }
+
+      .page-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--edtl-blue);
+        margin-bottom: 0.25rem;
+      }
+
+      .page-subtitle {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        letter-spacing: 0.06em;
+        margin-bottom: 2.5rem;
+      }
+
+      .edtl-stripe {
+        width: 48px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--edtl-blue) 40%, var(--edtl-red) 40%);
+        border-radius: 2px;
+        margin: 0 auto 2rem auto;
+      }
+
+      .kontador-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0,61,165,0.09), 0 1px 4px rgba(0,0,0,0.05);
+        padding: 2rem 2rem 1.5rem 2rem;
+        width: 100%;
+        max-width: 360px;
+        transition: transform 0.18s, box-shadow 0.18s;
+        border: 1.5px solid rgba(0,61,165,0.07);
+      }
+
+      .kontador-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 32px rgba(0,61,165,0.14), 0 2px 8px rgba(0,0,0,0.07);
+      }
+
+      .card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        margin-bottom: 1.1rem;
+      }
+
+      .card-icon.kantor {
+        background: rgba(0,61,165,0.1);
+        color: var(--edtl-blue);
+      }
+
+      .card-icon.dapur {
+        background: rgba(229,0,43,0.09);
+        color: var(--edtl-red);
+      }
+
+      .card-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.3rem;
+      }
+
+      .card-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #1a2340;
+        margin-bottom: 1.2rem;
+      }
+
+      .meter-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: #1a2340;
+        letter-spacing: 0.05em;
+        background: #f5f7fc;
+        border-radius: 10px;
+        padding: 0.65rem 1rem;
+        margin-bottom: 1.2rem;
+        border: 1.5px solid rgba(0,61,165,0.08);
+        user-select: all;
+      }
+
+      .btn-copy {
+        width: 100%;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 0.6rem 1rem;
+        transition: all 0.18s;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .btn-copy.kantor {
+        background: var(--edtl-blue);
+        color: #fff;
+      }
+
+      .btn-copy.kantor:hover {
+        background: #002b7a;
+        color: #fff;
+      }
+
+      .btn-copy.dapur {
+        background: var(--edtl-red);
+        color: #fff;
+      }
+
+      .btn-copy.dapur:hover {
+        background: #b5001f;
+        color: #fff;
+      }
+
+      .btn-copy.copied {
+        background: #16a34a !important;
+      }
+
+      .divider {
+        width: 100%;
+        max-width: 360px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(0,61,165,0.1);
+      }
+
+      .toast-container {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="text-center mb-1">
+      <div class="edtl-stripe"></div>
+      <div class="page-title">Kode Kontador EDTL</div>
+      <div class="page-subtitle">Electricidade de Timor-Leste · Referénsia Pagamentu</div>
+    </div>
+
+    <!-- Kantor Card -->
+    <div class="kontador-card mb-3">
+      <div class="card-icon kantor"><i class="bi bi-building"></i></div>
+      <div class="card-label">Kontador</div>
+      <div class="card-title">Kantor</div>
+      <div class="meter-number" id="num-kantor">32026394620</div>
+      <button class="btn-copy kantor" onclick="copyNumber('num-kantor', this)">
+        <i class="bi bi-clipboard"></i> Kopia Numeru
+      </button>
+    </div>
+
+    <div class="divider mb-3">no</div>
+
+    <!-- Dapur Card -->
+    <div class="kontador-card mb-4">
+      <div class="card-icon dapur"><i class="bi bi-fire"></i></div>
+      <div class="card-label">Kontador</div>
+      <div class="card-title">Dapur</div>
+      <div class="meter-number" id="num-dapur">14512775769</div>
+      <button class="btn-copy dapur" onclick="copyNumber('num-dapur', this)">
+        <i class="bi bi-clipboard"></i> Kopia Numeru
+      </button>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container">
+      <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            <i class="bi bi-check-circle me-2"></i> Numeru kopiadu ona!
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+      async function copyNumber(elementId, btn) {
+        const text = document.getElementById(elementId).textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (err) {
+          // Fallback for non-HTTPS
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+
+        // Button feedback
+        const originalHTML = btn.innerHTML;
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="bi bi-check2"></i> Kopiadu!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = originalHTML;
+        }, 2000);
+
+        // Toast
+        const toastEl = document.getElementById('copyToast');
+        const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 2000 });
+        toast.show();
+      }
+    </script>
+  </body>
+</html>
